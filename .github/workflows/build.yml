@@ -1,9 +1,9 @@
-name: Build AAS Media Player APK
+name: Build APK
 
 on:
-  workflow_dispatch:
   push:
     branches: [ "main" ]
+  workflow_dispatch:
 
 jobs:
   build:
@@ -11,23 +11,32 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
+
       - name: Set up Gradle
         uses: gradle/actions/setup-gradle@v4
         with:
           gradle-version: 8.9
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-      - name: Install Android platform
-        run: sdkmanager "platforms;android-35" "build-tools;35.0.0"
+
       - name: Build debug APK
-        run: gradle assembleDebug
+        run: |
+          PROJ_DIR=$(find . -maxdepth 5 -name "settings.gradle.kts" -o -name "settings.gradle" | head -n 1 | xargs -r dirname)
+          echo "Found project dir: ${PROJ_DIR:-.}"
+          cd "${PROJ_DIR:-.}"
+          if [ -f "./gradlew" ]; then
+            chmod +x ./gradlew
+            ./gradlew assembleDebug --stacktrace
+          else
+            gradle assembleDebug --stacktrace
+          fi
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: AAS-Media-Player-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: "**/build/outputs/apk/debug/*.apk"
