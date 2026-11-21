@@ -5,6 +5,9 @@ on:
   push:
     branches: [ "main" ]
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -35,9 +38,11 @@ jobs:
           cd "$GRADLE_DIR"
           chmod +x gradlew
           ./gradlew assembleDebug
+          find "$GITHUB_WORKSPACE" -name "*.apk" -ls
 
-      - name: Upload APK
+      - name: Upload APK Artifact
         uses: actions/upload-artifact@v4
         with:
           name: AAS-Media-Player-debug-apk
           path: "**/build/outputs/apk/debug/*.apk"
+          if-no-files-found: warn
