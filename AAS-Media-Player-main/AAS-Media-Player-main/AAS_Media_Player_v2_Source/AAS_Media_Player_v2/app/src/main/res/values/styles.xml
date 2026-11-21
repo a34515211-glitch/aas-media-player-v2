@@ -1,0 +1,11 @@
+<resources>
+    <style name="Theme.AASMediaPlayer" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#5B8DEF</item>
+        <item name="colorPrimaryVariant">#315DB5</item>
+        <item name="colorSecondary">#36C9A5</item>
+        <item name="android:fontFamily">sans</item>
+        <item name="android:windowLightStatusBar">false</item>
+        <item name="android:statusBarColor">#101722</item>
+        <item name="android:navigationBarColor">#101722</item>
+    </style>
+</resources>
