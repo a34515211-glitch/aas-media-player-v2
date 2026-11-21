@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="aas_bg_dark">#070811</color>
+    <color name="aas_gold">#F5C451</color>
+    <color name="aas_purple">#9B5DE5</color>
+
+    <style name="Theme.MyAudioApp" parent="android:Theme.Material.NoActionBar">
+        <item name="android:statusBarColor">@color/aas_bg_dark</item>
+        <item name="android:navigationBarColor">@color/aas_bg_dark</item>
+        <item name="android:windowBackground">@color/aas_bg_dark</item>
+    </style>
+</resources>
